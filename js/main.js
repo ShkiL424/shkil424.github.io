@@ -1,21 +1,19 @@
-"use strict"
-
 // Fixed nav bar
 window.addEventListener('scroll', function() {
 	let scrolled = window.pageYOffset || document.documentElement.scrollTop;
 	let navBar = document.querySelector('.navbar');
 
-	if (scrolled != 0) {
+	if (scrolled !== 0) {
 		navBar.classList.add('afix');
-	}else if (scrolled == 0) {
+	}else if (scrolled === 0) {
 		navBar.classList.remove('afix');
 	}
 });
 
-// Back to top button 
+// Back to top button
 function trackScroll() {
-	var scrolled = window.pageYOffset;
-	var coords = document.documentElement.clientHeight;
+	let scrolled = window.pageYOffset;
+	let coords = document.documentElement.clientHeight;
 
 	if (scrolled > coords) {
 		goTopBtn.classList.add('back-to-top-show');
@@ -32,7 +30,7 @@ function backToTop() {
 	}
 }
 
-var goTopBtn = document.querySelector('.back-to-top');
+let goTopBtn = document.querySelector('.back-to-top');
 
 window.addEventListener('scroll', trackScroll);
 goTopBtn.addEventListener('click', backToTop);
@@ -42,7 +40,7 @@ function getWidthPage() {
 	return document.documentElement.clientWidth;
 }
 
-// Slider 
+// Slider
 function getWidhtElem(elem) {
 	return document.querySelector(elem).offsetWidth;
 }
@@ -61,12 +59,12 @@ function setWidhtElem(slider, element) {
 		let elemWidth = getWidhtElem(slider) / 2 * elemChild(element);
 		elem.style.width = elemWidth + 'px';
 	}
-	
+
 }
 
 window.onload = window.onresize = function() {
 	setWidhtElem('.my_works-slider', '.my_works-slider-wraper');
-}
+};
 
 
 function mySlider(slider, wraper, item, button) {
@@ -86,7 +84,7 @@ function mySlider(slider, wraper, item, button) {
 
 	slidderItems.forEach(function(item, index) {
 		items.push({item: item, position: index, transform: 0})
-	})
+	});
 
 
 	let position = {
@@ -114,14 +112,14 @@ function mySlider(slider, wraper, item, button) {
 		getMax: function () {
 			return items[position.getItemMax()].position;
 		}
-	}
+	};
 
 
 	let transformItrem = function (direction) {
 		let nextItem;
 
 		if(direction === 'right') {
-			positionLeftItem++
+			positionLeftItem++;
 			if((positionLeftItem + wraperWidth / itemWidth - 1) > position.getMax()){
 				nextItem = position.getItemMin();
 				items[nextItem].position = position.getMax() + 1;
@@ -131,9 +129,9 @@ function mySlider(slider, wraper, item, button) {
 				}, 700);
 			}
 			transform -= step;
-		}	
+		}
 		if(direction === 'left') {
-			positionLeftItem--
+			positionLeftItem--;
 			if(positionLeftItem < position.getMin()){
 				nextItem = position.getItemMax();
 				items[nextItem].position = position.getMin() - 1;
@@ -141,27 +139,27 @@ function mySlider(slider, wraper, item, button) {
 				items[nextItem].item.style.transform = 'translateX(' + items[nextItem].transform + '%)';
 			}
 			transform += step;
-		}	
+		}
 		sliderWraper.style.transform = 'translateX(' + transform + '%)';
-	}
+	};
 
 
 	let controlClick = function () {
-		let direction
+		let direction;
 		if(this.classList.contains('right')){
 			direction = 'right'
 		} else {
 			direction = 'left'
 		}
 			transformItrem(direction);
-	}
+	};
 
 
 	let setUpListener = function () {
 		sliderConyrols.forEach(function (item) {
 			item.addEventListener('click', controlClick)
-		})	
-	}
+		})
+	};
 	setUpListener();
 }
 
@@ -170,14 +168,14 @@ mySlider('.my_works-slider', '.my_works-slider-wraper', '.my_works-slider-items'
 
 
 
-// Faq acordeon 
+// Faq acordeon
 let itemFaq = document.querySelectorAll('.faq-item');
 
 let clickToQuestion = function () {
 	itemFaq.forEach(function (items) {
 		items.addEventListener('click', showItemsFaq)
 	});
-}
+};
 
 function showItemsFaq() {
 	let section = this.lastElementChild;
@@ -196,7 +194,7 @@ function showItemsFaq() {
 function collapseSection(element) {
 	let sectionHeight = element.scrollHeight;
 	let elementTransition = element.style.transition;
-	
+
 	element.style.transition = '';
 
 	requestAnimationFrame(function() {
@@ -206,7 +204,7 @@ function collapseSection(element) {
 		requestAnimationFrame(function() {
 			element.style.height = 0 + 'px';
 		})
-	})
+	});
 	element.setAttribute('data-collapsed','true')
 }
 
@@ -218,7 +216,7 @@ function expandSection(element) {
 	element.addEventListener('transitionend', function(e) {
 		element.addEventListener('transitionend', arguments.callee);
 		element.style.height = null;
-	})
+	});
 	element.setAttribute('data-collapsed', 'false');
 }
 
@@ -239,7 +237,7 @@ function sectionMinus(element){
 clickToQuestion();
 
 
-// Scrol to 
+// Scrol to
 let linkNav = document.querySelectorAll('.menuLink');
 let V = .25;
 
@@ -251,32 +249,32 @@ linkNav.forEach(function(item){
 		let hash = this.href.replace(/[^#]*(.*)/, '$1');
 		let indentTo = document.querySelector(hash).getBoundingClientRect().top;
 		let start = null;
-	
+
 		requestAnimationFrame(step);
 		showToggleMenu();
-	
+
 		function step(time){
 			if(start === null) start = time;
-	
+
 			let progress = time - start;
 			let r;
-	
+
 			if (indentTo < 0) {
 				r = Math.max(winScrol - progress / V, winScrol + indentTo);
 			}else {
 				r = Math.min(winScrol + progress / V, winScrol + indentTo);
 			}
-	
+
 			window.scrollTo(0, r);
-	
-			if(r != winScrol + indentTo){
-				requestAnimationFrame(step);	
+
+			if(r !== winScrol + indentTo){
+				requestAnimationFrame(step);
 			}else {
 				location.hash = hash;
 			}
 		}
 	})
-})
+});
 
 
 // Validation form
@@ -286,7 +284,7 @@ formButton.addEventListener('click', function(e){
 
 	for (let i = 0; i < form.length - 1; i++) {
 
-		if(form.elements[i].value){	
+		if(form.elements[i].value){
 			removeClass(form.elements[i]);
 			if(form.elements[1].value) {
 				emailValid(form.elements[1])
@@ -301,7 +299,7 @@ formButton.addEventListener('click', function(e){
 
 function addClass(elememt) {
 	let elem = elememt.nextElementSibling;
-	elem.classList.add('show')
+	elem.classList.add('show');
 	console.log(elem.classList);
 }
 
@@ -313,8 +311,8 @@ function removeClass(elememt) {
 function emailValid(element) {
 	let reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 	let elem = element.value;
-	
-	if(reg.test(elem) == false) {
+
+	if(reg.test(elem) === false) {
 		addClass(element);
 	}else {
 		removeClass(element);
@@ -338,5 +336,5 @@ function showToggleMenu() {
 	}else if (toggleBtn.classList.contains("fa-times")){
 		toggleBtn.classList.remove('fa-times');
 		toggleBtn.classList.add('fa-equals');
-	}	
+	}
 }
