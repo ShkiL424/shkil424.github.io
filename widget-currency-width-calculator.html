@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+  <title>Content</title>
+  <style>
+    .bst-wrapper-calc {
+      height: 137px;
+      padding: 6px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: normal;
+    }
+
+    .bst-calculator-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-row-gap: 7px;
+    }
+
+    .bst-first-title {
+      font-size: 12px;
+      color: rgba(0, 0, 0, .5);
+      margin-bottom: 5px;
+    }
+
+    .bst-last-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .bst-item-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 8px;
+    }
+
+    .bst-item-wrap label input {
+      width: 88%;
+      border: 2px solid rgba(0, 0, 0, .2);
+      border-radius: 5px;
+      padding: 9px 3px;
+      font-weight: bold;
+      font-size: 12px;
+      color: rgba(0, 0, 0, .6);
+
+    }
+
+    .bst-item-wrap label select {
+      width: 100%;
+      border: 2px solid rgba(0, 0, 0, .2);
+      border-radius: 5px;
+      padding: 7px 3px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* header */
+    .bst-header {
+      display: grid;
+      grid-template-columns: 3fr 5fr 5fr;
+      background-color: #175645;
+      color: #fff;
+    }
+
+    .bst-header-item {
+      padding: 8px;
+      font-size: 10px;
+    }
+
+    /* content */
+    .bst-content {
+      border: 2px solid #D8D8D8;
+      position: relative;
+    }
+
+    .bst-loading {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: grid;
+      font-size: 12px;
+    }
+
+    .bst-content-item {
+      display: grid;
+      grid-template-columns: 4fr 5fr 5fr;
+      font-size: 12px;
+    }
+
+    .bst-content-item-el {
+      padding: 9px 0;
+      text-align: center;
+      width: 100%;
+      align-self: center;
+    }
+
+    .bst-content-item-el:nth-child(1) {
+      font-weight: bold;
+      border-right: 1px solid #D4D4D4;
+    }
+
+    .bst-content-item-el:nth-child(2) {
+      font-weight: 300;
+      border-right: 1px solid #D4D4D4;
+    }
+
+    .bst-content-item-el:nth-child(3) {
+      font-weight: 300;
+    }
+
+    /* footer */
+    .bst-footer {
+      display: grid;
+      background-color: #175645;
+      padding: 5px;
+    }
+
+    .bst-footer-link {
+      justify-self: end;
+      color: yellow;
+    }
+
+    /* Small blocks */
+    .bst-grid-center {
+      justify-self: center;
+      align-self: center;
+    }
+
+    .bst-bg-gray {
+      background-color: #F1F1F1;
+    }
+
+    .bst-border-grey-right {
+      border-right: 1px solid #D4D4D4;
+    }
+
+    .bst-bold {
+      font-weight: bold;
+    }
+
+    .bst-light {
+      font-weight: 300;
+    }
+
+    .bst-small-text {
+      font-size: 8px;
+    }
+
+    /* base */
+    .bst-body {
+      margin: 0;
+      padding: 0;
+      font-family: "Roboto", sans-serif;
+      background: #fff;
+    }
+
+    .bst-wrapper {
+      display: grid;
+      grid-template-rows: max-content 1fr max-content;
+      min-height: 153px;
+    }
+
+    .bst-p, .bst-label, .bst-input, .bst-select {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="bst-body">
+
+
+<div class="bst-content-wrapper">
+  <div class="bst-wrapper-calc">
+    <div class="bst-text">
+      <p class="bst-first-title bst-p"><span id="bst-firstQuantity">1</span> <span id="bst-firstCurrency">EUR</span>
+        дорівнює</p>
+      <p class="bst-last-title bst-p"><span id="bst-lastQuantity">1</span> <span id="bst-lastCurrency">EUR</span></p>
+    </div>
+
+    <div class="bst-calculator-wrap">
+      <div class="bst-item-wrap">
+        <label class="bst-label">
+          <input class="bst-input" type="text" id='bst-firstInput' value="1">
+        </label>
+
+        <label class="bst-label">
+          <select class="bst-select" name="" id="bst-firstSelect"></select>
+        </label>
+      </div>
+
+      <div class="bst-item-wrap">
+        <label class="bst-label">
+          <input class="bst-input" type="text" id="bst-lastInput" value="1">
+        </label>
+
+        <label class="bst-label">
+          <select class="bst-select" name="" id="bst-lastSelect"></select>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="bst-wrapper">
+    <div class="bst-header">
+      <div class="bst-header-item bst-grid-center bst-exchange-rates bst-light bst-small-text">Курс валют</div>
+      <div class="bst-header-item bst-grid-center bst-purchase bst-bold">Купiвля</div>
+      <div class="bst-header-item bst-grid-center bst-sale bst-bold">Продаж</div>
+    </div>
+
+    <div class="bst-content">
+      <div class="bst-loading">
+        <div class="bst-grid-center">Loading...</div>
+      </div>
+    </div>
+
+    <div class="bst-footer">
+      <a class="bst-footer-link bst-small-text bst-light" target="_blank" href="https://bestrate.com.ua/">bestrate.com.ua</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // functions
+  (async function getData() {
+    const response = await fetch('http://3.135.234.233/bestrate/v1/currency/', {method: "GEt"});
+    if(response.ok) {
+      const json = await response.json();
+      filterData(json.list)
+    }
+  })();
+
+  // logic
+  function filterData(list) {
+    filterCurrentCurrency(list.filter(f => f.symbol.indexOf('/') === -1));
+  }
+
+  function filterCurrentCurrency(list) {
+    setDataHtml(list.filter(f => f.symbol === 'USD' || f.symbol === 'EUR' || f.symbol === 'RUB'));
+  }
+
+  function setDataHtml(data) {
+    let res = '';
+    data.forEach((item, index) => {
+      res += `
+      <div class="bst-content-item ${index === 1 ? 'bst-bg-gray' : '' }">
+        <div class="bst-content-item-el">${item.symbol}</div>
+        <div class="bst-content-item-el">${item.buying_rate}</div>
+        <div class="bst-content-item-el">${item.selling_rate}</div>
+      </div>
+    `;
+    });
+    removeHtmlElement('.bst-loading');
+    insertHtml(res);
+  }
+
+  function removeHtmlElement(selector) {
+    const elem = document.querySelector(selector);
+    if (elem) elem.remove();
+  }
+
+  function insertHtml(html) {
+    const content = document.querySelector('.bst-content');
+    if (content) content.insertAdjacentHTML('afterbegin', html);
+  }
+
+  const inputsSelectors = ['#bst-firstInput', '#bst-lastInput'];
+  const sectsSelectors = ['#bst-firstSelect', '#bst-lastSelect'];
+
+  // functions
+  (async function getCalcData() {
+    const response = await fetch('http://3.135.234.233/bestrate/v1/currency/', {method: "GEt"});
+    if (response.ok) {
+      const json = await response.json();
+      filterCalcData(json.list)
+    }
+  })();
+
+  // function check input value only numbers
+  function setInputFilter(textBox, inputFilter) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function (event) {
+      textBox.addEventListener(event, function () {
+        if (inputFilter(this.value)) {
+          this.oldValue = this.value;
+          this.oldSelectionStart = this.selectionStart;
+          this.oldSelectionEnd = this.selectionEnd;
+        } else if (this.hasOwnProperty("oldValue")) {
+          this.value = this.oldValue;
+          this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        } else {
+          this.value = "";
+        }
+      });
+    });
+  }
+
+  // calculate currency
+  function calculateCurrency(quantity, convertibleCurrency, receivedCurrency) {
+    return Number((quantity * (convertibleCurrency / receivedCurrency)).toFixed(2));
+  }
+
+  // get element from dom
+  function getElement(selector) {
+    return document.querySelector(selector);
+  }
+
+  // get data from select
+  function getDataFromSelect(selector) {
+    return Number(getElement(selector).value);
+  }
+
+  // set data to element
+  function setDataToElement(selector, value) {
+    getElement(selector).value = value;
+  }
+
+  // set quantity result to view
+  function setQuantityToView(firstQuantity, lastQuantity) {
+    getElement('#bst-firstQuantity').innerHTML = firstQuantity;
+    getElement('#bst-lastQuantity').innerHTML = lastQuantity;
+  }
+
+  // set currency to view
+  function setCurrencyToView(select, value) {
+    getElement(select).innerHTML = value;
+  }
+
+  // logic
+  function filterCalcData(list) {
+    setAllOptionToSelect(list.filter(f => f.symbol.indexOf('/') === -1))
+  }
+
+  // set options data to selects
+  function setAllOptionToSelect(list) {
+    let htmlOptions = '';
+    list.forEach(item => {
+      htmlOptions += `<option value="${item.buying_rate}">${item.symbol}</option>`
+    });
+
+    sectsSelectors.forEach(selector => {
+      setDataToHtml(selector, htmlOptions);
+    });
+  }
+
+  function setDataToHtml(selector, data) {
+    const elem = document.querySelector(selector);
+    if (elem) elem.insertAdjacentHTML('afterbegin', data);
+  }
+
+  // only numbers on inputs
+  inputsSelectors.forEach(selector => {
+    setInputFilter(document.querySelector(selector), function (value) {
+      return /^\d*$/.test(value);
+    });
+  });
+
+  // init input event emitters
+  inputsSelectors.forEach(selector => {
+    const el = getElement(selector);
+    if (el) {
+      el.addEventListener('input', (e) => {
+        calculateInputData(e)
+      });
+    }
+  });
+
+  // calc and set data from inputs
+  function calculateInputData(e) {
+    switch (e.target.id) {
+      case 'bst-firstInput': {
+        const calcVal = calculateCurrency(
+          e.target.value,
+          getDataFromSelect('#bst-firstSelect'),
+          getDataFromSelect('#bst-lastSelect')
+        );
+        setDataToElement('#bst-lastInput', calcVal);
+        setQuantityToView(e.target.value, calcVal);
+      }
+        break;
+
+      case 'bst-lastInput': {
+        const calcVal = calculateCurrency(
+          e.target.value,
+          getDataFromSelect('#bst-lastSelect'),
+          getDataFromSelect('#bst-firstSelect')
+        );
+        setDataToElement('#bst-firstInput', calcVal);
+        setQuantityToView(e.target.value, calcVal);
+      }
+        break
+    }
+  }
+
+  // init selects event emitters
+  sectsSelectors.forEach(selector => {
+    const el = getElement(selector);
+    if (el) {
+      el.addEventListener('change', (e) => {
+        calculateSelectData(e)
+      });
+    }
+  });
+
+  function calculateSelectData(e) {
+    switch (e.target.id) {
+      case 'bst-firstSelect': {
+        const calcVal = calculateCurrency(
+          getDataFromSelect('#bst-firstInput'),
+          e.target.value,
+          getDataFromSelect('#bst-lastSelect'),
+        );
+        setDataToElement('#bst-lastInput', calcVal);
+        setCurrencyToView('#bst-firstCurrency', e.target.selectedOptions[0].innerHTML);
+      }
+        break;
+
+      case 'bst-lastSelect': {
+        const calcVal = calculateCurrency(
+          getDataFromSelect('#bst-lastInput'),
+          e.target.value,
+          getDataFromSelect('#bst-firstSelect'),
+        );
+        setDataToElement('#bst-firstInput', calcVal);
+        setCurrencyToView('#bst-lastCurrency', e.target.selectedOptions[0].innerHTML);
+      }
+        break;
+    }
+  }
+
+</script>
+</body>
+</html>
